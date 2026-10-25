@@ -331,12 +331,16 @@ menuSetup(void)
     /* MenuFont overload to indicate menu initalization. */
     return;
   }
+#ifdef __linux__
+  menuFont = XLoadQueryFont(__glutDisplay, "fixed");
+#else
   menuFont = XLoadQueryFont(__glutDisplay,
     "-*-helvetica-bold-o-normal--14-*-*-*-p-*-iso8859-1");
   if (!menuFont) {
     /* Try back up font. */
     menuFont = XLoadQueryFont(__glutDisplay, "fixed");
   }
+#endif
   if (!menuFont) {
     __glutFatalError("could not load font.");
   }
